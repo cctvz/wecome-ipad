@@ -5,4 +5,5 @@ ipad protocol, implementation
 
 <ul>更新API
    <li>/v1/qrcode(获取二维码)</li>
+   <li> /v1/login/check(检查用户是否登陆)</li>
 </ul>
