@@ -54,7 +54,7 @@ func (m *MacApi) PostJson(requestPath string, data interface{}, headers map[stri
 	return respHtml
 }
 
-func (m *MacApi) GetJson(requestPath string, headers string) string {
+func (m *MacApi) GetJson(requestPath string, headers map[string]string) string {
 	clientGet := http.Client{}
 	requestUrl := BASE_URL + requestPath
 	if m.BaseUrl != "" {
@@ -64,8 +64,15 @@ func (m *MacApi) GetJson(requestPath string, headers string) string {
 	if err != nil {
 		log.Fatal("http.NewRequest", err)
 	}
-
-	req.Header.Set("Authorization", headers)
+	if m.Authorization != "" {
+		req.Header.Set("Authorization", m.Authorization)
+	}
+	req.Header.Set("Authorization", m.Authorization)
+	if headers != nil {
+		for key, val := range headers {
+			req.Header.Set(key, val)
+		}
+	}
 	resp, err := clientGet.Do(req)
 	if err != nil {
 		log.Fatal("clientGet.Do", err)

@@ -7,10 +7,6 @@ import (
 	pkg_api "wecome-ipad/util/http"
 )
 
-type qrcodeParams struct {
-	Token string `json:"token"`
-}
-
 type QrcodeGenerated struct {
 	Code string `json:"code"`
 	Data struct {
@@ -23,15 +19,8 @@ type QrcodeGenerated struct {
 
 func QrcodeController(c *gin.Context) {
 
-	var qrcodeParams qrcodeParams
-
-	if err := c.BindJSON(&qrcodeParams); err != nil {
-		c.JSON(http.StatusForbidden, "token miss")
-		return
-	}
-
 	apiHandler := pkg_api.MacApi{Authorization: c.GetHeader("Authorization")}
-	ret := apiHandler.GetJson("/login/qr_code", qrcodeParams.Token)
+	ret := apiHandler.GetJson("/login/qr_code", map[string]string{})
 
 	resp := &QrcodeGenerated{}
 	_ = json.Unmarshal([]byte(ret), resp)
