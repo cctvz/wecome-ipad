@@ -20,7 +20,7 @@ type QrcodeGenerated struct {
 func QrcodeController(c *gin.Context) {
 
 	apiHandler := pkg_api.MacApi{Authorization: c.GetHeader("Authorization")}
-	ret := apiHandler.GetJson("http://47.122.9.145:8080/login/qr_code", "Bearer skjfskldjfklsdjfklkdf")
+	ret := apiHandler.GetJson("/login/qr_code", "Bearer skjfskldjfklsdjfklkdf")
 
 	resp := &QrcodeGenerated{}
 	_ = json.Unmarshal([]byte(ret), resp)
